@@ -1,0 +1,32 @@
+{
+  "name": "baby-mayla-web-app",
+  "version": "1.0.0",
+  "private": true,
+  "license": "UNLICENSED",
+  "scripts": {
+    "build": "preact build",
+    "dev": "preact watch",
+    "serve": "preact build && serve build --single",
+    "start": "per-env",
+    "start:development": "npm run --silent dev",
+    "start:production": "npm run --silent serve"
+  },
+  "dependencies": {
+    "antd": "4.0.2",
+    "dayjs": "1.8.22",
+    "firebase": "7.10.0",
+    "preact": "10.3.3",
+    "preact-render-to-string": "5.1.4",
+    "react-vertical-timeline-component": "2.5.0"
+  },
+  "devDependencies": {
+    "antd-dayjs-webpack-plugin": "0.0.8",
+    "dotenv": "8.2.0",
+    "husky": "4.2.3",
+    "per-env": "1.0.2",
+    "preact-cli": "3.0.0-rc.10",
+    "prettier": "1.19.1",
+    "pretty-quick": "2.0.1",
+    "serve": "11.3.0"
+  }
+}
