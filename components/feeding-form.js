@@ -1,4 +1,4 @@
-import { useState } from 'preact/hooks';
+import { useState } from 'react';
 import { Form, Input, Button } from 'antd';
 import { dayjs, roundDownToQuarterHour } from '../core/dayjs';
 import { FEEDING_TYPES, AMOUNTS } from '../core/constants';

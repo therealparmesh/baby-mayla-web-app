@@ -1,6 +1,6 @@
 node_modules
-build
-size-plugin.json
+out
+.next
 .env
 .DS_Store
 *.log

@@ -1,32 +1,29 @@
 {
   "name": "baby-mayla-web-app",
   "version": "1.0.0",
-  "private": true,
-  "license": "UNLICENSED",
+  "repository": "github:therealparmesh/baby-mayla-web-app",
+  "license": "MIT",
   "scripts": {
-    "build": "preact build",
-    "dev": "preact watch",
-    "serve": "preact build && serve build --single",
-    "start": "per-env",
-    "start:development": "npm run --silent dev",
-    "start:production": "npm run --silent serve"
+    "build": "next build && next export",
+    "dev": "next dev",
+    "start": "serve out"
   },
   "dependencies": {
-    "antd": "4.0.2",
-    "dayjs": "1.8.22",
-    "firebase": "7.10.0",
-    "preact": "10.3.3",
-    "preact-render-to-string": "5.1.4",
-    "react-vertical-timeline-component": "2.5.0"
+    "antd": "^4.0.3",
+    "antd-dayjs-webpack-plugin": "^0.0.9",
+    "dayjs": "^1.8.23",
+    "dotenv": "8.2.0",
+    "firebase": "^7.11.0",
+    "next": "^9.3.0",
+    "next-offline": "^5.0.0",
+    "react": "^16.13.0",
+    "react-dom": "^16.13.0",
+    "react-vertical-timeline-component": "^2.5.0",
+    "serve": "^11.3.0"
   },
   "devDependencies": {
-    "antd-dayjs-webpack-plugin": "0.0.8",
-    "dotenv": "8.2.0",
-    "husky": "4.2.3",
-    "per-env": "1.0.2",
-    "preact-cli": "3.0.0-rc.10",
-    "prettier": "1.19.1",
-    "pretty-quick": "2.0.1",
-    "serve": "11.3.0"
+    "husky": "^4.2.3",
+    "prettier": "^1.19.1",
+    "pretty-quick": "^2.0.1"
   }
 }

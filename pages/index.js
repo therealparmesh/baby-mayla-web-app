@@ -1,10 +1,8 @@
-import 'antd/dist/antd.min.css';
-import 'react-vertical-timeline-component/style.min.css';
-import { useEffect, useState } from 'preact/hooks';
+import Head from 'next/head';
+import { useEffect, useState } from 'react';
 import { Input, Layout, Menu } from 'antd';
-import './core/global.css';
-import { FeedingsTab } from './components/feedings-tab';
-import { PumpingsTab } from './components/pumpings-tab';
+import { FeedingsTab } from '../components/feedings-tab';
+import { PumpingsTab } from '../components/pumpings-tab';
 
 const Main = () => {
   const [activeTab, setActiveTab] = useState('feedings');
@@ -97,4 +95,27 @@ const App = () => {
   );
 };
 
-export default App;
+const Home = () => {
+  return (
+    <>
+      <Head>
+        <meta charSet="utf-8" />
+        <meta
+          name="viewport"
+          content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no"
+        />
+        <meta name="description" content="Baby Mayla Web App" />
+        <meta name="theme-color" content="#000000" />
+        <meta name="mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <title>Baby Mayla Web App</title>
+        <link rel="manifest" href="/manifest.json" />
+        <link rel="shortcut icon" href="/favicon.ico" />
+        <link rel="apple-touch-icon" href="/icons/icon-192x192.png" />
+      </Head>
+      <App />
+    </>
+  );
+};
+
+export default Home;

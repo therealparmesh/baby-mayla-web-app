@@ -1,38 +1,38 @@
-import { useState, useEffect } from 'preact/hooks';
+import { useState, useEffect } from 'react';
 import { Alert, Button, Input } from 'antd';
 import { Modal } from './modal';
-import { PumpingsTimeline } from './pumpings-timeline';
-import { PumpingForm } from './pumping-form';
+import { FeedingsTimeline } from './feedings-timeline';
+import { FeedingForm } from './feeding-form';
 import { dayjs } from '../core/dayjs';
 import { firebase } from '../core/firebase';
 import { DATABASES } from '../core/constants';
 
-export const PumpingsTab = () => {
+export const FeedingsTab = () => {
   const [filterDate, setFilterDate] = useState(dayjs());
-  const [pumpings, setPumpings] = useState(null);
+  const [feedings, setFeedings] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   useEffect(() => {
     const unsubscribe = firebase
       .firestore()
-      .collection(DATABASES.PUMPINGS)
+      .collection(DATABASES.FEEDINGS)
       .onSnapshot(({ docs }) =>
-        setPumpings(docs.map(doc => ({ ...doc.data(), id: doc.id }))),
+        setFeedings(docs.map(doc => ({ ...doc.data(), id: doc.id }))),
       );
 
     return unsubscribe;
   }, []);
 
-  const sortedPumpings = [...(pumpings || [])].sort((a, b) => b.date - a.date);
+  const sortedFeedings = [...(feedings || [])].sort((a, b) => b.date - a.date);
 
-  const filteredPumpings = sortedPumpings.filter(
-    pumping =>
-      pumping.date >=
+  const filteredFeedings = sortedFeedings.filter(
+    feeding =>
+      feeding.date >=
         filterDate
           .startOf('day')
           .toDate()
           .getTime() &&
-      pumping.date <=
+      feeding.date <=
         filterDate
           .endOf('day')
           .toDate()
@@ -42,15 +42,15 @@ export const PumpingsTab = () => {
   const format = 'YYYY-MM-DD';
 
   return (
-    Boolean(sortedPumpings.length) && (
+    Boolean(sortedFeedings.length) && (
       <>
-        {sortedPumpings[0] && (
+        {sortedFeedings[0] && (
           <Alert
             style={{ marginBottom: '32px' }}
             type="info"
             showIcon
-            message="Last pumping"
-            description={dayjs(sortedPumpings[0].date).fromNow()}
+            message="Last feeding"
+            description={dayjs(sortedFeedings[0].date).fromNow()}
           />
         )}
         <div style={{ textAlign: 'center' }}>
@@ -60,7 +60,7 @@ export const PumpingsTab = () => {
             block
             onClick={() => setIsModalOpen(true)}
           >
-            Add pumping
+            Add feeding
           </Button>
           <Input
             style={{ marginBottom: '8px' }}
@@ -68,29 +68,30 @@ export const PumpingsTab = () => {
             value={dayjs(filterDate).format(format)}
             onChange={e => setFilterDate(dayjs(e.target.value, format))}
           />
-          {filteredPumpings[0] && (
-            <PumpingsTimeline>
-              {filteredPumpings.map(pumping => (
-                <PumpingsTimeline.Element
-                  date={pumping.date}
-                  amount={pumping.session_amount_oz}
+          {filteredFeedings[0] && (
+            <FeedingsTimeline>
+              {filteredFeedings.map(feeding => (
+                <FeedingsTimeline.Element
+                  date={feeding.date}
+                  type={feeding.type}
+                  amount={feeding.bottle_amount_oz}
                 />
               ))}
-            </PumpingsTimeline>
+            </FeedingsTimeline>
           )}
         </div>
         <Modal
-          title="There's been a pumping!"
+          title="There's been a feeding!"
           isOpen={isModalOpen}
           onClose={() => {
             setIsModalOpen(false);
           }}
         >
-          <PumpingForm
+          <FeedingForm
             onSubmit={data => {
               firebase
                 .firestore()
-                .collection(DATABASES.PUMPINGS)
+                .collection(DATABASES.FEEDINGS)
                 .add(data);
 
               setIsModalOpen(false);

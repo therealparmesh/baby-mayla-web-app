@@ -1,5 +1,7 @@
 html,
-body {
+body,
+#__next,
+#app {
   height: 100% !important;
   width: 100% !important;
   overflow: hidden !important;
