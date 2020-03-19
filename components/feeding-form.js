@@ -11,7 +11,9 @@ export const FeedingForm = ({ initial, onSubmit }) => {
   );
 
   const [type, setType] = useState(initial ? initial.type : null);
-  const [amount, setAmount] = useState(initial ? initial.amount : null);
+  const [amount, setAmount] = useState(
+    initial ? initial.bottle_amount_oz : null,
+  );
 
   return (
     <Form layout="vertical">
@@ -53,9 +55,7 @@ export const FeedingForm = ({ initial, onSubmit }) => {
           style={{ width: '100%' }}
           disabled={type === FEEDING_TYPES.BREAST}
           value={amount}
-          onChange={e => {
-            setAmount(e.target.value);
-          }}
+          onChange={e => setAmount(e.target.value)}
         >
           <option disabled> </option>
           {AMOUNTS.map(a => (
@@ -70,15 +70,15 @@ export const FeedingForm = ({ initial, onSubmit }) => {
           type="primary"
           block
           disabled={date === null || type === null || amount === null}
-          onClick={() => {
+          onClick={() =>
             onSubmit({
               date: dayjs(date)
                 .toDate()
                 .getTime(),
               type,
               bottle_amount_oz: amount,
-            });
-          }}
+            })
+          }
         >
           Confirm
         </Button>

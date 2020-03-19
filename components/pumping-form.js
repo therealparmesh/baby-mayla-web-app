@@ -10,7 +10,9 @@ export const PumpingForm = ({ initial, onSubmit }) => {
     initial ? initial.date : roundDownToQuarterHour(),
   );
 
-  const [amount, setAmount] = useState(initial ? initial.amount : null);
+  const [amount, setAmount] = useState(
+    initial ? initial.session_amount_oz : null,
+  );
 
   return (
     <Form layout="vertical">
@@ -27,9 +29,7 @@ export const PumpingForm = ({ initial, onSubmit }) => {
         <select
           style={{ width: '100%' }}
           value={amount}
-          onChange={e => {
-            setAmount(e.target.value);
-          }}
+          onChange={e => setAmount(e.target.value)}
         >
           <option disabled> </option>
           {AMOUNTS.map(a => (
@@ -44,14 +44,14 @@ export const PumpingForm = ({ initial, onSubmit }) => {
           type="primary"
           block
           disabled={date === null || amount === null}
-          onClick={() => {
+          onClick={() =>
             onSubmit({
               date: dayjs(date)
                 .toDate()
                 .getTime(),
               session_amount_oz: amount,
-            });
-          }}
+            })
+          }
         >
           Confirm
         </Button>

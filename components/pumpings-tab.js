@@ -12,7 +12,8 @@ let initial;
 export const PumpingsTab = () => {
   const [filterDate, setFilterDate] = useState(dayjs());
   const [pumpings, setPumpings] = useState(initial);
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
+  const [isEditModalOpen, setIsEditModalOpen] = useState(null);
 
   useEffect(() => {
     const unsubscribe = firebase
@@ -62,7 +63,7 @@ export const PumpingsTab = () => {
             style={{ marginBottom: '32px' }}
             type="primary"
             block
-            onClick={() => setIsModalOpen(true)}
+            onClick={() => setIsCreateModalOpen(true)}
           >
             Add pumping
           </Button>
@@ -76,8 +77,10 @@ export const PumpingsTab = () => {
             <PumpingsTimeline>
               {filteredPumpings.map(pumping => (
                 <PumpingsTimeline.Element
+                  key={pumping.id}
                   date={pumping.date}
                   amount={pumping.session_amount_oz}
+                  onClick={() => setIsEditModalOpen(pumping)}
                 />
               ))}
             </PumpingsTimeline>
@@ -85,9 +88,9 @@ export const PumpingsTab = () => {
         </div>
         <Modal
           title="There's been a pumping!"
-          isOpen={isModalOpen}
+          isOpen={isCreateModalOpen}
           onClose={() => {
-            setIsModalOpen(false);
+            setIsCreateModalOpen(false);
           }}
         >
           <PumpingForm
@@ -97,7 +100,27 @@ export const PumpingsTab = () => {
                 .collection(DATABASES.PUMPINGS)
                 .add(data);
 
-              setIsModalOpen(false);
+              setIsCreateModalOpen(false);
+            }}
+          />
+        </Modal>
+        <Modal
+          title="There was a pumping!"
+          isOpen={Boolean(isEditModalOpen)}
+          onClose={() => {
+            setIsEditModalOpen(null);
+          }}
+        >
+          <PumpingForm
+            initial={isEditModalOpen}
+            onSubmit={data => {
+              firebase
+                .firestore()
+                .collection(DATABASES.PUMPINGS)
+                .doc(isEditModalOpen.id)
+                .set(data);
+
+              setIsEditModalOpen(null);
             }}
           />
         </Modal>

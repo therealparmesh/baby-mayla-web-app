@@ -12,7 +12,8 @@ let initial;
 export const FeedingsTab = () => {
   const [filterDate, setFilterDate] = useState(dayjs());
   const [feedings, setFeedings] = useState(initial);
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
+  const [isEditModalOpen, setIsEditModalOpen] = useState(null);
 
   useEffect(() => {
     const unsubscribe = firebase
@@ -62,7 +63,7 @@ export const FeedingsTab = () => {
             style={{ marginBottom: '32px' }}
             type="primary"
             block
-            onClick={() => setIsModalOpen(true)}
+            onClick={() => setIsCreateModalOpen(true)}
           >
             Add feeding
           </Button>
@@ -76,9 +77,11 @@ export const FeedingsTab = () => {
             <FeedingsTimeline>
               {filteredFeedings.map(feeding => (
                 <FeedingsTimeline.Element
+                  key={feeding.id}
                   date={feeding.date}
                   type={feeding.type}
                   amount={feeding.bottle_amount_oz}
+                  onClick={() => setIsEditModalOpen(feeding)}
                 />
               ))}
             </FeedingsTimeline>
@@ -86,9 +89,9 @@ export const FeedingsTab = () => {
         </div>
         <Modal
           title="There's been a feeding!"
-          isOpen={isModalOpen}
+          isOpen={isCreateModalOpen}
           onClose={() => {
-            setIsModalOpen(false);
+            setIsCreateModalOpen(false);
           }}
         >
           <FeedingForm
@@ -98,7 +101,27 @@ export const FeedingsTab = () => {
                 .collection(DATABASES.FEEDINGS)
                 .add(data);
 
-              setIsModalOpen(false);
+              setIsCreateModalOpen(false);
+            }}
+          />
+        </Modal>
+        <Modal
+          title="There was a feeding!"
+          isOpen={Boolean(isEditModalOpen)}
+          onClose={() => {
+            setIsEditModalOpen(null);
+          }}
+        >
+          <FeedingForm
+            initial={isEditModalOpen}
+            onSubmit={data => {
+              firebase
+                .firestore()
+                .collection(DATABASES.FEEDINGS)
+                .doc(isEditModalOpen.id)
+                .set(data);
+
+              setIsEditModalOpen(null);
             }}
           />
         </Modal>
