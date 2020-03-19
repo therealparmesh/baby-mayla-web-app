@@ -7,18 +7,22 @@ import { dayjs } from '../core/dayjs';
 import { firebase } from '../core/firebase';
 import { DATABASES } from '../core/constants';
 
+let initial;
+
 export const FeedingsTab = () => {
   const [filterDate, setFilterDate] = useState(dayjs());
-  const [feedings, setFeedings] = useState(null);
+  const [feedings, setFeedings] = useState(initial);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   useEffect(() => {
     const unsubscribe = firebase
       .firestore()
       .collection(DATABASES.FEEDINGS)
-      .onSnapshot(({ docs }) =>
-        setFeedings(docs.map(doc => ({ ...doc.data(), id: doc.id }))),
-      );
+      .onSnapshot(({ docs }) => {
+        initial = docs.map(doc => ({ ...doc.data(), id: doc.id }));
+
+        setFeedings(initial);
+      });
 
     return unsubscribe;
   }, []);
