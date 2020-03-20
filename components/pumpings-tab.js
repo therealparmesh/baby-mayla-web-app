@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Alert, Button, Input } from 'antd';
+import { Alert, Button, Input, Typography } from 'antd';
 import { Modal } from './modal';
 import { PumpingsTimeline } from './pumpings-timeline';
 import { PumpingForm } from './pumping-form';
@@ -54,8 +54,7 @@ export const PumpingsTab = () => {
             style={{ marginBottom: '32px' }}
             type="info"
             showIcon
-            message="Last pumping"
-            description={dayjs(sortedPumpings[0].date).fromNow()}
+            message={`Last pumping: ${dayjs(sortedPumpings[0].date).fromNow()}`}
           />
         )}
         <div style={{ textAlign: 'center' }}>
@@ -74,16 +73,26 @@ export const PumpingsTab = () => {
             onChange={e => setFilterDate(dayjs(e.target.value, format))}
           />
           {filteredPumpings[0] && (
-            <PumpingsTimeline>
-              {filteredPumpings.map(pumping => (
-                <PumpingsTimeline.Element
-                  key={pumping.id}
-                  date={pumping.date}
-                  amount={pumping.session_amount_oz}
-                  onClick={() => setIsEditModalOpen(pumping)}
-                />
-              ))}
-            </PumpingsTimeline>
+            <>
+              <Typography.Title style={{ marginBottom: '8px' }} level={4}>
+                Daily pumpings total:{' '}
+                {filteredPumpings.reduce(
+                  (p, c) => p + (c.session_amount_oz || 0),
+                  0,
+                )}{' '}
+                oz.
+              </Typography.Title>
+              <PumpingsTimeline>
+                {filteredPumpings.map(pumping => (
+                  <PumpingsTimeline.Element
+                    key={pumping.id}
+                    date={pumping.date}
+                    amount={pumping.session_amount_oz}
+                    onClick={() => setIsEditModalOpen(pumping)}
+                  />
+                ))}
+              </PumpingsTimeline>
+            </>
           )}
         </div>
         <Modal

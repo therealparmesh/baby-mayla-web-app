@@ -29,7 +29,7 @@ export const PumpingForm = ({ initial, onSubmit }) => {
         <select
           style={{ width: '100%' }}
           value={amount}
-          onChange={e => setAmount(e.target.value)}
+          onChange={e => setAmount(Number.parseFloat(e.target.value))}
         >
           <option disabled> </option>
           {AMOUNTS.map(a => (

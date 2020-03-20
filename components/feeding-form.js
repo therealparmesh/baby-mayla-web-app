@@ -34,7 +34,7 @@ export const FeedingForm = ({ initial, onSubmit }) => {
             setType(e.target.value);
 
             if (e.target.value === FEEDING_TYPES.BREAST) {
-              setAmount(0.0);
+              setAmount(0);
             }
           }}
         >
@@ -55,7 +55,7 @@ export const FeedingForm = ({ initial, onSubmit }) => {
           style={{ width: '100%' }}
           disabled={type === FEEDING_TYPES.BREAST}
           value={amount}
-          onChange={e => setAmount(e.target.value)}
+          onChange={e => setAmount(Number.parseFloat(e.target.value))}
         >
           <option disabled> </option>
           {AMOUNTS.map(a => (

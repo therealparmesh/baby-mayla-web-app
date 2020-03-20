@@ -24,9 +24,7 @@ PumpingsTimeline.Element = ({ date, amount, onClick }) => {
         onClick={onClick}
       >
         <Typography.Title>{dayjs(date).format('LT')}</Typography.Title>
-        <Typography.Text>
-          <Typography.Text strong>{amount}</Typography.Text> bottle oz.
-        </Typography.Text>
+        <Typography.Text strong>{amount} oz.</Typography.Text>
       </button>
     </VerticalTimelineElement>
   );

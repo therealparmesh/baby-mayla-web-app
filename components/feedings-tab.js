@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Alert, Button, Input } from 'antd';
+import { Alert, Button, Input, Typography } from 'antd';
 import { Modal } from './modal';
 import { FeedingsTimeline } from './feedings-timeline';
 import { FeedingForm } from './feeding-form';
@@ -54,8 +54,7 @@ export const FeedingsTab = () => {
             style={{ marginBottom: '32px' }}
             type="info"
             showIcon
-            message="Last feeding"
-            description={dayjs(sortedFeedings[0].date).fromNow()}
+            message={`Last feeding: ${dayjs(sortedFeedings[0].date).fromNow()}`}
           />
         )}
         <div style={{ textAlign: 'center' }}>
@@ -74,17 +73,27 @@ export const FeedingsTab = () => {
             onChange={e => setFilterDate(dayjs(e.target.value, format))}
           />
           {filteredFeedings[0] && (
-            <FeedingsTimeline>
-              {filteredFeedings.map(feeding => (
-                <FeedingsTimeline.Element
-                  key={feeding.id}
-                  date={feeding.date}
-                  type={feeding.type}
-                  amount={feeding.bottle_amount_oz}
-                  onClick={() => setIsEditModalOpen(feeding)}
-                />
-              ))}
-            </FeedingsTimeline>
+            <>
+              <Typography.Title style={{ marginBottom: '8px' }} level={4}>
+                Daily feedings total:{' '}
+                {filteredFeedings.reduce(
+                  (p, c) => p + (c.bottle_amount_oz || 0),
+                  0,
+                )}{' '}
+                oz.
+              </Typography.Title>
+              <FeedingsTimeline>
+                {filteredFeedings.map(feeding => (
+                  <FeedingsTimeline.Element
+                    key={feeding.id}
+                    date={feeding.date}
+                    type={feeding.type}
+                    amount={feeding.bottle_amount_oz}
+                    onClick={() => setIsEditModalOpen(feeding)}
+                  />
+                ))}
+              </FeedingsTimeline>
+            </>
           )}
         </div>
         <Modal

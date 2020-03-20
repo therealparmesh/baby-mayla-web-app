@@ -38,9 +38,7 @@ FeedingsTimeline.Element = ({ date, type, amount, onClick }) => {
         {type !== FEEDING_TYPES.BREAST && (
           <>
             <br />
-            <Typography.Text>
-              <Typography.Text strong>{amount}</Typography.Text> bottle oz.
-            </Typography.Text>
+            <Typography.Text strong>{amount} oz.</Typography.Text>
           </>
         )}
       </button>
