@@ -11,7 +11,7 @@ export const PumpingForm = ({ initial, onSubmit }) => {
   );
 
   const [amount, setAmount] = useState(
-    initial ? initial.session_amount_oz : null,
+    initial ? initial.session_amount_oz : AMOUNTS[0],
   );
 
   return (
@@ -31,7 +31,6 @@ export const PumpingForm = ({ initial, onSubmit }) => {
           value={amount}
           onChange={e => setAmount(Number.parseFloat(e.target.value))}
         >
-          <option disabled> </option>
           {AMOUNTS.map(a => (
             <option key={a} value={a}>
               {a} oz.
@@ -43,7 +42,7 @@ export const PumpingForm = ({ initial, onSubmit }) => {
         <Button
           type="primary"
           block
-          disabled={date === null || amount === null}
+          disabled={amount === AMOUNTS[0]}
           onClick={() =>
             onSubmit({
               date: dayjs(date)

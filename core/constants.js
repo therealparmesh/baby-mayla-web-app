@@ -7,6 +7,7 @@ export const DATABASES = {
 };
 
 export const FEEDING_TYPES = {
+  NONE: '',
   BREAST: 'breast',
   BOTTLE: 'bottle',
   BOTTLE_INCLUDING_FORMULA: 'bottle_f',

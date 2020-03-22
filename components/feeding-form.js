@@ -10,9 +10,10 @@ export const FeedingForm = ({ initial, onSubmit }) => {
     initial ? initial.date : roundDownToQuarterHour(),
   );
 
-  const [type, setType] = useState(initial ? initial.type : null);
+  const [type, setType] = useState(initial ? initial.type : FEEDING_TYPES.NONE);
+
   const [amount, setAmount] = useState(
-    initial ? initial.bottle_amount_oz : null,
+    initial ? initial.bottle_amount_oz : AMOUNTS[0],
   );
 
   return (
@@ -38,7 +39,7 @@ export const FeedingForm = ({ initial, onSubmit }) => {
             }
           }}
         >
-          <option disabled> </option>
+          <option value={FEEDING_TYPES.NONE}>----</option>
           <option value={FEEDING_TYPES.BREAST}>Breast</option>
           <option value={FEEDING_TYPES.BOTTLE}>Bottle</option>
           <option value={FEEDING_TYPES.BOTTLE_INCLUDING_FORMULA}>
@@ -57,7 +58,6 @@ export const FeedingForm = ({ initial, onSubmit }) => {
           value={amount}
           onChange={e => setAmount(Number.parseFloat(e.target.value))}
         >
-          <option disabled> </option>
           {AMOUNTS.map(a => (
             <option key={a} value={a}>
               {a} oz.
@@ -69,7 +69,10 @@ export const FeedingForm = ({ initial, onSubmit }) => {
         <Button
           type="primary"
           block
-          disabled={date === null || type === null || amount === null}
+          disabled={
+            type === FEEDING_TYPES.NONE ||
+            (type !== FEEDING_TYPES.BREAST && amount === AMOUNTS[0])
+          }
           onClick={() =>
             onSubmit({
               date: dayjs(date)
