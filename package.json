@@ -16,7 +16,7 @@
     "firebase": "^7.11.0",
     "next": "^9.3.0",
     "next-offline": "^5.0.0",
-    "react": "^16.13.0",
+    "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-vertical-timeline-component": "^2.5.0",
     "serve": "^11.3.0"
