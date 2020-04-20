@@ -15,7 +15,7 @@
     "dotenv": "8.2.0",
     "firebase": "^7.14.1",
     "next": "^9.3.5",
-    "next-offline": "^5.0.0",
+    "next-offline": "^5.0.1",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-vertical-timeline-component": "^2.6.0",
