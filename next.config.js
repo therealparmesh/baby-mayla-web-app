@@ -6,7 +6,7 @@ const AntdDayjsWebpackPlugin = require('antd-dayjs-webpack-plugin');
 dotenv.config();
 
 module.exports = withOffline({
-  webpack: config => {
+  webpack: (config) => {
     config.plugins.push(
       new webpack.EnvironmentPlugin(['FIREBASE_CONFIG', 'CLIENT_PASSWORD']),
       new AntdDayjsWebpackPlugin(),

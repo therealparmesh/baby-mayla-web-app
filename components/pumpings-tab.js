@@ -20,7 +20,7 @@ export const PumpingsTab = () => {
       .firestore()
       .collection(DATABASES.PUMPINGS)
       .onSnapshot(({ docs }) => {
-        initial = docs.map(doc => ({ ...doc.data(), id: doc.id }));
+        initial = docs.map((doc) => ({ ...doc.data(), id: doc.id }));
 
         setPumpings(initial);
       });
@@ -31,17 +31,9 @@ export const PumpingsTab = () => {
   const sortedPumpings = [...(pumpings || [])].sort((a, b) => b.date - a.date);
 
   const filteredPumpings = sortedPumpings.filter(
-    pumping =>
-      pumping.date >=
-        filterDate
-          .startOf('day')
-          .toDate()
-          .getTime() &&
-      pumping.date <=
-        filterDate
-          .endOf('day')
-          .toDate()
-          .getTime(),
+    (pumping) =>
+      pumping.date >= filterDate.startOf('day').toDate().getTime() &&
+      pumping.date <= filterDate.endOf('day').toDate().getTime(),
   );
 
   const format = 'YYYY-MM-DD';
@@ -70,7 +62,7 @@ export const PumpingsTab = () => {
             style={{ marginBottom: '8px' }}
             type="date"
             value={dayjs(filterDate).format(format)}
-            onChange={e => setFilterDate(dayjs(e.target.value, format))}
+            onChange={(e) => setFilterDate(dayjs(e.target.value, format))}
           />
           {filteredPumpings[0] && (
             <>
@@ -83,7 +75,7 @@ export const PumpingsTab = () => {
                 oz.
               </Typography.Title>
               <PumpingsTimeline>
-                {filteredPumpings.map(pumping => (
+                {filteredPumpings.map((pumping) => (
                   <PumpingsTimeline.Element
                     key={pumping.id}
                     date={pumping.date}
@@ -103,11 +95,8 @@ export const PumpingsTab = () => {
           }}
         >
           <PumpingForm
-            onSubmit={data => {
-              firebase
-                .firestore()
-                .collection(DATABASES.PUMPINGS)
-                .add(data);
+            onSubmit={(data) => {
+              firebase.firestore().collection(DATABASES.PUMPINGS).add(data);
 
               setIsCreateModalOpen(false);
             }}
@@ -122,7 +111,7 @@ export const PumpingsTab = () => {
         >
           <PumpingForm
             initial={isEditModalOpen}
-            onSubmit={data => {
+            onSubmit={(data) => {
               firebase
                 .firestore()
                 .collection(DATABASES.PUMPINGS)

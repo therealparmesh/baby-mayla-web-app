@@ -23,15 +23,15 @@ export const FeedingForm = ({ initial, onSubmit }) => {
           type="datetime-local"
           step={900}
           value={dayjs(date).format(format)}
-          onChange={e => setDate(dayjs(e.target.value, format))}
-          onBlur={() => setDate(d => roundDownToQuarterHour(d))}
+          onChange={(e) => setDate(dayjs(e.target.value, format))}
+          onBlur={() => setDate((d) => roundDownToQuarterHour(d))}
         />
       </Form.Item>
       <Form.Item label="Type">
         <select
           style={{ width: '100%' }}
           value={type}
-          onChange={e => {
+          onChange={(e) => {
             setType(e.target.value);
 
             if (e.target.value === FEEDING_TYPES.BREAST) {
@@ -56,9 +56,9 @@ export const FeedingForm = ({ initial, onSubmit }) => {
           style={{ width: '100%' }}
           disabled={type === FEEDING_TYPES.BREAST}
           value={amount}
-          onChange={e => setAmount(Number.parseFloat(e.target.value))}
+          onChange={(e) => setAmount(Number.parseFloat(e.target.value))}
         >
-          {AMOUNTS.map(a => (
+          {AMOUNTS.map((a) => (
             <option key={a} value={a}>
               {a} oz.
             </option>
@@ -75,9 +75,7 @@ export const FeedingForm = ({ initial, onSubmit }) => {
           }
           onClick={() =>
             onSubmit({
-              date: dayjs(date)
-                .toDate()
-                .getTime(),
+              date: dayjs(date).toDate().getTime(),
               type,
               bottle_amount_oz: amount,
             })

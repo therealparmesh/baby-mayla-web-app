@@ -21,17 +21,17 @@ export const PumpingForm = ({ initial, onSubmit }) => {
           type="datetime-local"
           step={900}
           value={dayjs(date).format(format)}
-          onChange={e => setDate(dayjs(e.target.value, format))}
-          onBlur={() => setDate(d => roundDownToQuarterHour(d))}
+          onChange={(e) => setDate(dayjs(e.target.value, format))}
+          onBlur={() => setDate((d) => roundDownToQuarterHour(d))}
         />
       </Form.Item>
       <Form.Item label="Session amount (oz.)">
         <select
           style={{ width: '100%' }}
           value={amount}
-          onChange={e => setAmount(Number.parseFloat(e.target.value))}
+          onChange={(e) => setAmount(Number.parseFloat(e.target.value))}
         >
-          {AMOUNTS.map(a => (
+          {AMOUNTS.map((a) => (
             <option key={a} value={a}>
               {a} oz.
             </option>
@@ -45,9 +45,7 @@ export const PumpingForm = ({ initial, onSubmit }) => {
           disabled={amount === AMOUNTS[0]}
           onClick={() =>
             onSubmit({
-              date: dayjs(date)
-                .toDate()
-                .getTime(),
+              date: dayjs(date).toDate().getTime(),
               session_amount_oz: amount,
             })
           }

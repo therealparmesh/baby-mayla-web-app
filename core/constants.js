@@ -1,4 +1,4 @@
-const getDatabaseName = name =>
+const getDatabaseName = (name) =>
   `${name}${process.env.NODE_ENV === 'development' ? '_dev' : ''}`;
 
 export const DATABASES = {

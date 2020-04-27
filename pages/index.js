@@ -83,7 +83,7 @@ const App = () => {
         }}
         placeholder="Enter password..."
         value={password}
-        onChange={e => setPassword(e.target.value)}
+        onChange={(e) => setPassword(e.target.value)}
       />
     );
   }

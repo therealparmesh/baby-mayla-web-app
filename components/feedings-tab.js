@@ -20,7 +20,7 @@ export const FeedingsTab = () => {
       .firestore()
       .collection(DATABASES.FEEDINGS)
       .onSnapshot(({ docs }) => {
-        initial = docs.map(doc => ({ ...doc.data(), id: doc.id }));
+        initial = docs.map((doc) => ({ ...doc.data(), id: doc.id }));
 
         setFeedings(initial);
       });
@@ -31,17 +31,9 @@ export const FeedingsTab = () => {
   const sortedFeedings = [...(feedings || [])].sort((a, b) => b.date - a.date);
 
   const filteredFeedings = sortedFeedings.filter(
-    feeding =>
-      feeding.date >=
-        filterDate
-          .startOf('day')
-          .toDate()
-          .getTime() &&
-      feeding.date <=
-        filterDate
-          .endOf('day')
-          .toDate()
-          .getTime(),
+    (feeding) =>
+      feeding.date >= filterDate.startOf('day').toDate().getTime() &&
+      feeding.date <= filterDate.endOf('day').toDate().getTime(),
   );
 
   const format = 'YYYY-MM-DD';
@@ -70,7 +62,7 @@ export const FeedingsTab = () => {
             style={{ marginBottom: '8px' }}
             type="date"
             value={dayjs(filterDate).format(format)}
-            onChange={e => setFilterDate(dayjs(e.target.value, format))}
+            onChange={(e) => setFilterDate(dayjs(e.target.value, format))}
           />
           {filteredFeedings[0] && (
             <>
@@ -83,7 +75,7 @@ export const FeedingsTab = () => {
                 oz.
               </Typography.Title>
               <FeedingsTimeline>
-                {filteredFeedings.map(feeding => (
+                {filteredFeedings.map((feeding) => (
                   <FeedingsTimeline.Element
                     key={feeding.id}
                     date={feeding.date}
@@ -104,11 +96,8 @@ export const FeedingsTab = () => {
           }}
         >
           <FeedingForm
-            onSubmit={data => {
-              firebase
-                .firestore()
-                .collection(DATABASES.FEEDINGS)
-                .add(data);
+            onSubmit={(data) => {
+              firebase.firestore().collection(DATABASES.FEEDINGS).add(data);
 
               setIsCreateModalOpen(false);
             }}
@@ -123,7 +112,7 @@ export const FeedingsTab = () => {
         >
           <FeedingForm
             initial={isEditModalOpen}
-            onSubmit={data => {
+            onSubmit={(data) => {
               firebase
                 .firestore()
                 .collection(DATABASES.FEEDINGS)
