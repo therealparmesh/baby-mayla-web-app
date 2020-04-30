@@ -11,7 +11,7 @@
   "dependencies": {
     "antd": "^4.2.0",
     "antd-dayjs-webpack-plugin": "^1.0.0",
-    "dayjs": "^1.8.25",
+    "dayjs": "^1.8.26",
     "dotenv": "8.2.0",
     "firebase": "^7.14.2",
     "next": "^9.3.6",
