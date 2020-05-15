@@ -13,7 +13,7 @@
     "antd-dayjs-webpack-plugin": "^1.0.0",
     "dayjs": "^1.8.27",
     "dotenv": "8.2.0",
-    "firebase": "^7.14.3",
+    "firebase": "^7.14.4",
     "next": "^9.4.0",
     "next-offline": "^5.0.2",
     "react": "^16.13.1",
