@@ -18,7 +18,7 @@
     "next-offline": "^5.0.2",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
-    "react-vertical-timeline-component": "^3.0.1",
+    "react-vertical-timeline-component": "^3.0.2",
     "serve": "^11.3.2"
   },
   "devDependencies": {
