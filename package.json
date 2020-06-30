@@ -9,7 +9,7 @@
     "start": "serve out"
   },
   "dependencies": {
-    "antd": "^4.3.5",
+    "antd": "^4.4.0",
     "antd-dayjs-webpack-plugin": "^1.0.0",
     "dayjs": "^1.8.28",
     "dotenv": "8.2.0",
